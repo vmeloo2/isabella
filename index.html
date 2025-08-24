@@ -4,9 +4,35 @@
   <meta charset="UTF-8" />
   <title>Minha Foto</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#297B42">
-<body style="margin:0; display:flex; justify-content:center; align-items:center; height:100vh; background:#000;">
-  <img src="017DE57D-D13E-4A17-A797-66C3C4E2BD8C.jpeg" alt="Minha Foto" style="max-width:100%; max-height:100vh;" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#297B42" id="theme-color">
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #000;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <img src="19DCBF53-5885-48BB-ACC4-D91DDF03FF60.jpeg" alt="Minha Foto" />
+
+  <script>
+    const metaThemeColor = document.querySelector("meta[name=theme-color]");
+
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 10) {
+        metaThemeColor.setAttribute("content", "#ffffff"); // branco ao rolar
+      } else {
+        metaThemeColor.setAttribute("content", "#297B42"); // verde no topo
+      }
+    });
+  </script>
 </body>
 </html>
