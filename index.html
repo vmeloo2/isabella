@@ -21,17 +21,26 @@
   </style>
 </head>
 <body>
-  <img src="017DE57D-D13E-4A17-A797-66C3C4E2BD8C.jpeg" alt="Minha Foto" />
+  <img src="19DCBF53-5885-48BB-ACC4-D91DDF03FF60.jpeg" alt="Minha Foto" />
 
   <script>
     const metaThemeColor = document.querySelector("meta[name=theme-color]");
 
     window.addEventListener("scroll", () => {
-      if (window.scrollY > 10) {
-        metaThemeColor.setAttribute("content", "#ffffff"); // branco ao rolar
-      } else {
-        metaThemeColor.setAttribute("content", "#297B42"); // verde no topo
-      }
+      // calcula quanto rolou (0 no topo até 1 no fundo)
+      const scrollPercent = Math.min(window.scrollY / 150, 1);
+
+      // cores em RGB
+      const startColor = [41, 123, 66];   // verde #297B42
+      const endColor   = [255, 255, 255]; // branco #FFFFFF
+
+      // faz o "blend" entre verde e branco
+      const blended = startColor.map((c, i) => 
+        Math.round(c + (endColor[i] - c) * scrollPercent)
+      );
+
+      const newColor = `rgb(${blended[0]}, ${blended[1]}, ${blended[2]})`;
+      metaThemeColor.setAttribute("content", newColor);
     });
   </script>
 </body>
