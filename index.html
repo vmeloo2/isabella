@@ -7,16 +7,25 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="theme-color" content="#297B42" id="theme-color">
   <style>
-    body {
+   :root{
+      /* se quiser mudar o fundo do site, altere aqui */
+      --site-bg: #ffffff; /* verde claro do seu fundo */
+   }
+   html, body {
       margin: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #000;
+      background: var(--site-bg);
     }
     img {
       max-width: 100%;
       height: auto;
+      display: block;          /* evita linha por ser inline */
+      border: 0;
+      outline: 0;
+      box-shadow: none;
+    }
+    /* Fallback para iOS Safari (artefato de subpixel) */
+    @supports (-webkit-touch-callout: none) {
+      img { margin-bottom: -1px; }
     }
   </style>
 </head>
