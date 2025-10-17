@@ -7,47 +7,46 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="theme-color" content="#297B42" id="theme-color">
   <style>
-   :root{
-      /* se quiser mudar o fundo do site, altere aqui */
-      --site-bg: #ffffff; /* verde claro do seu fundo */
-   }
-   html, body {
+    :root {
+      --site-bg: #ffffff; /* fundo branco */
+    }
+
+    html, body {
       margin: 0;
+      padding: 0;
       background: var(--site-bg);
+      height: 100%;
+      width: 100%;
+      overflow: hidden; /* impede rolagem */
     }
+
     img {
-      max-width: 100%;
-      height: auto;
-      display: block;          /* evita linha por ser inline */
-      border: 0;
-      outline: 0;
-      box-shadow: none;
+      position: fixed; /* fixa a imagem */
+      top: 0;
+      left: 0;
+      width: 100vw; /* 100% da largura da tela */
+      height: 100vh; /* 100% da altura da tela */
+      object-fit: contain; /* mantém proporção sem cortar */
+      display: block;
     }
-    /* Fallback para iOS Safari (artefato de subpixel) */
+
     @supports (-webkit-touch-callout: none) {
       img { margin-bottom: -1px; }
     }
   </style>
 </head>
 <body>
-  <img src="a1ff663a-81e8-4042-90af-a56c5e891ad8.jpeg" alt="Minha Foto" {display: block} />
+  <img src="a1ff663a-81e8-4042-90af-a56c5e891ad8.jpeg" alt="Minha Foto" />
 
   <script>
     const metaThemeColor = document.querySelector("meta[name=theme-color]");
-
     window.addEventListener("scroll", () => {
-      // calcula quanto rolou (0 no topo até 1 no fundo)
       const scrollPercent = Math.min(window.scrollY / 150, 1);
-
-      // cores em RGB
-      const startColor = [41, 123, 66];   // verde #297B42
-      const endColor   = [255, 255, 255]; // branco #FFFFFF
-
-      // faz o "blend" entre verde e branco
-      const blended = startColor.map((c, i) => 
+      const startColor = [41, 123, 66];
+      const endColor   = [255, 255, 255];
+      const blended = startColor.map((c, i) =>
         Math.round(c + (endColor[i] - c) * scrollPercent)
       );
-
       const newColor = `rgb(${blended[0]}, ${blended[1]}, ${blended[2]})`;
       metaThemeColor.setAttribute("content", newColor);
     });
