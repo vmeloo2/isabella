@@ -2,54 +2,72 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Minha Foto</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <!-- Configurações PWA -->
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="theme-color" content="#297B42" id="theme-color">
+  <meta name="apple-mobile-web-app-title" content="Meu Site">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+  <!-- Mantém a barra verde -->
+  <meta name="theme-color" content="#297B42">
+  <meta name="theme-color" content="#297B42" media="(prefers-color-scheme: dark)">
+
+  <link rel="manifest" href="manifest.json">
+
+  <title>Meu Site</title>
+
   <style>
     :root {
-      --site-bg: #ffffff; /* fundo branco */
+      --verde-topo: #297B42;
+      --branco-base: #ffffff;
     }
 
     html, body {
       margin: 0;
       padding: 0;
-      background: var(--site-bg);
       height: 100%;
-      width: 100%;
-      overflow: hidden; /* impede rolagem */
+      background: linear-gradient(var(--verde-topo) 0%, var(--branco-base) 15%, var(--branco-base) 100%);
+      background-attachment: fixed;
+      color-scheme: light;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
     }
 
     img {
-      position: fixed; /* fixa a imagem */
-      top: 0;
-      left: 0;
-      width: 100vw; /* 100% da largura da tela */
-      height: 100vh; /* 100% da altura da tela */
-      object-fit: contain; /* mantém proporção sem cortar */
+      max-width: 100%;
+      height: auto;
       display: block;
+      border: 0;
+      outline: 0;
+      box-shadow: none;
+      margin-top: 0;
     }
 
+    /* Camada verde sob a status bar (mantém o efeito translúcido da Apple) */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: env(safe-area-inset-top);
+      background: var(--verde-topo);
+      z-index: -1;
+    }
+
+    /* Corrige espaçamento no iOS */
     @supports (-webkit-touch-callout: none) {
       img { margin-bottom: -1px; }
     }
   </style>
 </head>
 <body>
-  <img src="017DE57D-D13E-4A17-A797-66C3C4E2BD8C.jpeg" alt="Minha Foto" />
-
-  <script>
-    const metaThemeColor = document.querySelector("meta[name=theme-color]");
-    window.addEventListener("scroll", () => {
-      const scrollPercent = Math.min(window.scrollY / 150, 1);
-      const startColor = [41, 123, 66];
-      const endColor   = [255, 255, 255];
-      const blended = startColor.map((c, i) =>
-        Math.round(c + (endColor[i] - c) * scrollPercent)
-      );
-      const newColor = `rgb(${blended[0]}, ${blended[1]}, ${blended[2]})`;
-      metaThemeColor.setAttribute("content", newColor);
-    });
-  </script>
+  <img src="D9778246-95AB-45C6-8A7E-6CFFF32021B4.jpeg" alt="Minha Foto">
 </body>
 </html>
